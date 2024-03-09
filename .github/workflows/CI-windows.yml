@@ -67,7 +67,7 @@ jobs:
       - name: Build GUI release (CMake)
         if: startsWith(matrix.qt_ver, '6')
         run: |
-          cmake -S . -B build -DBUILD_GUI=On -DUSE_QT6=On -DWITH_QCHART=On || exit /b !errorlevel!
+          cmake -S . -B build -DBUILD_GUI=On -DUSE_QT6=On -DWITH_QCHART=On -DCMAKE_UNITY_BUILD=On || exit /b !errorlevel!
           cmake --build build --target cppcheck-gui || exit /b !errorlevel!
 
       # TODO: deploy with CMake/Qt6
@@ -138,7 +138,7 @@ jobs:
       - name: Run CMake
         if: false # TODO: enable
         run: |
-          cmake -S . -B build -DBUILD_TESTS=On || exit /b !errorlevel!
+          cmake -S . -B build -DBUILD_TESTS=On -DCMAKE_UNITY_BUILD=On || exit /b !errorlevel!
 
       - name: Build CLI debug configuration using MSBuild
         if: matrix.config == 'debug'
